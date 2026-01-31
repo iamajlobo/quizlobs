@@ -4,7 +4,7 @@ import Features from "../components/Features";
 import Footer from "../components/Footer";
 const Home = () => {
     return (
-       <section>
+       <section className="bg-blue-100/50">
             <NavBar/>
             <Hero/>
             <Features/>
