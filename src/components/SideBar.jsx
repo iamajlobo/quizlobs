@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import profile from '../assets/images/profile.png';
 import { useContext } from "react";
-import { RoleContext} from "../context/RoleContext";
+import { AuthContext} from "../context/AuthContext";
 
 const SideBar = () => {
-    const {role} = useContext(RoleContext);
+    const {user} = useContext(AuthContext);
+    const role = user.user.role;
     return (
         <div className="h-screen flex flex-col justify-between">
             <div>

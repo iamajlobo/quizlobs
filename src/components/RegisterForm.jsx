@@ -1,27 +1,45 @@
 import createAccount from '../assets/images/create-account.png';
 import {NavLink} from 'react-router-dom'; 
 import RoleButton from './RoleButton';
+import { useState, useContext } from 'react';
+import { RoleContext } from '../context/RoleContext';
 
 const RegisterForm = () => {
+    const {role} = useContext(RoleContext);
+    const [user,setUser] = useState({
+        fullname: '',
+        email: '',
+        role: role
+    });
+
+    const [password,setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState(''); 
+
+    const handleChange = (e) => {
+        const {name,value} = e.target;
+        setUser({...user,[name]:value})
+    }
+
+    
     return (
         <div className="border border-gray-200 shadow-md rounded-md w-full md:w-100 p-4 md:p-7 bg-white mb-10">
             <RoleButton/>
             <form>
                 <div className="my-2">
                     <h5 className="text-[10px] font-bold py-2">Full Name</h5>
-                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="Juan Dela Cruz"/>
+                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="Juan Dela Cruz" name="fullname" value={user.fullname} onChange={handleChange} autoCapitalize='words' autoComplete='name'/>
                 </div>
                 <div className="my-2">
                     <h5 className="text-[10px] font-bold py-2">Email</h5>
-                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" placeholder="youremail@gmail.com"/>
+                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" placeholder="youremail@gmail.com" name='email' value={user.email} onChange={handleChange} autoComplete='email'/>
                 </div>
                 <div className="my-2">
                     <h5 className="text-[10px] font-bold py-2">Password</h5>
-                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" placeholder="••••••••"/>
+                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" placeholder="••••••••" name="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 </div>
                 <div className="my-2">
                     <h5 className="text-[10px] font-bold py-2">Confirm Password</h5>
-                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" placeholder="••••••••"/>
+                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" placeholder="••••••••" name="confirm-password" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)}/>
                 </div>
                 <div className="my-3">
                     <button className='text-[14px] text-white bg-blue-600 flex items-center justify-center gap-2 w-full py-2 rounded-md hover:cursor-pointer hover:bg-blue-700' type="submit">

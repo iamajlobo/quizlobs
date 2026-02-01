@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { RoleContext } from "./RoleContext";
+import { useState } from 'react';
+import {RoleContext} from './RoleContext';
 
+const RoleProvider = ({children}) => {
+    const [role, setRole] = useState('teacher')
 
-const RoleProvider  = ({children}) => {
-    const [role,setRole] = useState('student');
     return (
         <RoleContext.Provider value={{role,setRole}}>
             {children}

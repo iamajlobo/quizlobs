@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 
 import DashboardCard from "../../components/DashboardCard";
 import SideBar from "../../components/SideBar";
@@ -9,10 +9,18 @@ import gcheck from '../../assets/images/gcheck.png';
 import menu from '../../assets/images/menu.svg';
 import close from '../../assets/images/close.svg';
 import pmuted from '../../assets/images/pmuted.png';
+import { AuthContext } from "../../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 
 const TeacherDashboard = ()=> {
     const [isOpen, setIsOpen] = useState(false);
+    const {user} = useContext(AuthContext);
+
+    if(user.user.role !== 'teacher'){
+        return <Navigate to='/login'/>
+    }
+
     return(
         <main className="h-screen grid grid-cols-12 relative">
             <aside className={`border border-gray-200 lg:col-span-2 md:col-span-3 md:flex justify-between flex-col bg-white h-screen w-50 md:w-full absolute top-0 ${isOpen?'left-0':'-left-70'} md:left-0 md:relative transition-all ease-linear duration-400`}>

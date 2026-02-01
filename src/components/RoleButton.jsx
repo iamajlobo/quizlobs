@@ -1,10 +1,8 @@
-import { useState,useContext } from "react";
+import {useContext } from "react";
 import { RoleContext} from "../context/RoleContext";
 
 const RoleButton = () => {
-    const {role,setRole} = useContext(RoleContext);
-    
-
+    const {role,setRole}= useContext(RoleContext);
     const blue = 'text-sm w-full py-3 rounded hover:cursor-pointer bg-blue-600 text-white hover:bg-blue-700';
     const white = 'text-sm w-full py-3 rounded hover:cursor-pointer bg-gray-300 hover:bg-gray-400';
 
