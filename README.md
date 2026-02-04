@@ -27,23 +27,6 @@ QuizLobs is a web-based quiz management system designed for teachers and student
 - Package Manager: npm  
 
 
-## ⚙️ Installation & Setup
-1. Clone the repository  
-`git clone https://github.com/iamajlobo/quizlobs.git`  
-`cd quizlobs`
-
-2. Install dependencies  
-`npm install`
-
-3. Run the development server  
-`npm run dev`
-
-4. Open in browser  
-`http://localhost:5173`
-
-## 🌐 Routing Note
-QuizLobs uses HashRouter to ensure compatibility with static hosting platforms such as GitHub Pages, preventing routing issues on page refresh.
-
 ## 🎯 Project Goals
 - Practice modern React development
 - Apply component-based architecture
