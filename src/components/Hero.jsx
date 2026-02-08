@@ -9,7 +9,7 @@ const Hero = () => {
     return (
 
         <section className="bg-blue-50 border-b border-gray-200">
-            <div className="max-w-300 mx-auto flex justify-center items-center flex-col text-center py-24">
+            <div className="max-w-300 mx-auto flex justify-center items-center flex-col text-center py-32">
                 <h1 className="text-4xl md:text-6xl font-semibold px-2 md:px-15 lg:px-50 tracking-tight">
                     Create and Take Quizzes
                     <span className="text-blue-600"> Made Simple</span>

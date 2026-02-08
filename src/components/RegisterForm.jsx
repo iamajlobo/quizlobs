@@ -1,37 +1,51 @@
 import createAccount from '../assets/images/create-account.png';
-import {NavLink} from 'react-router-dom'; 
+import {NavLink, Navigate} from 'react-router-dom'; 
 import RoleButton from './RoleButton';
 import { useState, useContext } from 'react';
 import { RoleContext } from '../context/RoleContext';
+import { register } from '../api/authApi';
 
 const RegisterForm = () => {
     const {role} = useContext(RoleContext);
-    const [user,setUser] = useState({
-        fullname: '',
-        email: '',
-        role: role
-    });
+    
+    const [errors, setErrors] = useState({});
 
+    const [fullname,setFullname] = useState('');
+    const [email, setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); 
 
-    const handleChange = (e) => {
-        const {name,value} = e.target;
-        setUser({...user,[name]:value})
-    }
 
+    const handleOnSubmit = async (e) => {
+        e.preventDefault();
+        let splitName = fullname.split(" ");
+        let capitalizedName = splitName.map((e) => e.slice(0,1).toLocaleUpperCase() + e.slice(1,).toLocaleLowerCase());
+        let newFullname = capitalizedName.join(" ");
+
+        const newUser = {fullname: newFullname, email: email,password: password, role: role};
+        try {
+            const response = await register(newUser);
+            console.log(response.data);
+        }catch(error){
+            if(error.response && error.response.data?.error){
+                setErrors(error.response.data.error);
+            }else { 
+                console.error("Network or Server Error", error.message);
+            }
+        }
+    }
     
     return (
         <div className="border border-gray-200 shadow-md rounded-md w-full md:w-100 p-4 md:p-7 bg-white mb-10">
             <RoleButton/>
-            <form>
+            <form onSubmit={handleOnSubmit}>
                 <div className="my-2">
                     <h5 className="text-[10px] font-bold py-2">Full Name</h5>
-                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="Juan Dela Cruz" name="fullname" value={user.fullname} onChange={handleChange} autoCapitalize='words' autoComplete='name'/>
+                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="Juan Dela Cruz" name="fullname" value={fullname} onChange={(e)=>setFullname(e.target.value)} autoCapitalize='words' autoComplete='name'/>
                 </div>
                 <div className="my-2">
                     <h5 className="text-[10px] font-bold py-2">Email</h5>
-                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" placeholder="youremail@gmail.com" name='email' value={user.email} onChange={handleChange} autoComplete='email'/>
+                    <input className="w-full text-sm border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" placeholder="youremail@gmail.com" name='email' value={email} onChange={(e)=>setEmail(e.target.value)} autoComplete='email'/>
                 </div>
                 <div className="my-2">
                     <h5 className="text-[10px] font-bold py-2">Password</h5>
