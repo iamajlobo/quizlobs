@@ -1,20 +1,25 @@
 import createAccount from '../assets/images/create-account.png';
-import {NavLink, Navigate} from 'react-router-dom'; 
 import RoleButton from './RoleButton';
-import { useState, useContext } from 'react';
+
+import {NavLink} from 'react-router-dom'; 
+import { useState, useContext, useEffect } from 'react';
 import { RoleContext } from '../context/RoleContext';
 import { register } from '../api/authApi';
 
 const RegisterForm = () => {
     const {role} = useContext(RoleContext);
-    
     const [errors, setErrors] = useState({});
+    const [response, setResponse] = useState({});
 
     const [fullname,setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState(''); 
-
+    const [confirmPassword, setConfirmPassword] = useState('');
+    
+    
+    useEffect(()=>{
+        console.log(response);
+    },[response]);
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -25,7 +30,11 @@ const RegisterForm = () => {
         const newUser = {fullname: newFullname, email: email,password: password, role: role};
         try {
             const response = await register(newUser);
-            console.log(response.data);
+            setResponse(response.data);
+            setFullname('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
         }catch(error){
             if(error.response && error.response.data?.error){
                 setErrors(error.response.data.error);

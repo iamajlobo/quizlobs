@@ -14,7 +14,7 @@ import { Navigate } from "react-router-dom";
 const StudentDashboard = () =>{
     const [isOpen, setIsOpen] = useState(false);
     const {user} = useContext(AuthContext);
-    if(user.user.role !== 'student') {
+    if(user.role !== 'student') {
         return <Navigate to='/login'/>
     }
     return(

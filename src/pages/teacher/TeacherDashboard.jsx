@@ -17,7 +17,7 @@ const TeacherDashboard = ()=> {
     const [isOpen, setIsOpen] = useState(false);
     const {user} = useContext(AuthContext);
 
-    if(user.user.role !== 'teacher'){
+    if(user.role !== 'teacher'){
         return <Navigate to='/login'/>
     }
 
